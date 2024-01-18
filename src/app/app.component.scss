@@ -1,4 +1,30 @@
 :host {
-
+    width: 100%;
     padding: 1rem;
 }
+
+.card {
+    margin-top: 5rem;
+    box-shadow: 2px 24px 24px 0px rgba(189, 195, 199, 1);
+
+}
+
+th { 
+    padding-left: 0.8rem;
+    padding-block: 1rem;
+    min-width: 3rem;
+    background-color: white;
+}
+
+td  { 
+    padding: .8rem;
+}
+
+.name-column {
+    width: 12rem;
+}
+
+.final-score-column {
+    width: 5rem;
+}
+

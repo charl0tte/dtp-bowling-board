@@ -1,17 +1,48 @@
-<h1>
-  {{'Bowling Board'}}
-</h1> 
+<app-spinner *ngIf="(loading$ | async); else template"></app-spinner>
 
-<button class="btn btn-primary" (click)="fileInput.click()">Upload file</button>
+<ng-template #template>
+  <div class="container m-auto justify-content-center">
+    <div class="row my-4 d-flex">
+      <div class="col-md text-center">
+        <h1>
+          {{title}}
+        </h1>
+      </div>
+    </div>
 
-<input hidden type="file" #fileInput (change)="uploadFile($event)">
+    <div class="row my-4 d-flex">
+      <div class="col-md text-center">
+        <button class="btn btn-link" (click)="useExample()">Use this example </button> 
+        or 
+        <button class="btn btn-link"
+          (click)="fileInput.click()">Upload your own file </button>
+        <input hidden type="file" #fileInput (change)="uploadFile($event)">
+      </div>
+    </div>
 
-<ng-container *ngIf="content | async as content">
-  <div *ngFor="let player of content">
-  <span>{{player.name}}</span>
-  <p class="d-inline ms-3">{{player.finalScore}}</p>
+    <ng-container *ngIf="players$ | async as players">
+      <div class="d-flex row mb-4">
+        <div class="col">
+          <div class="table-responsive card h-100">
+            <table class="table table-bordered mb-0 h-100">
+              <tr>
+                <th scope="col" class="p-6 name-column">Name</th>
+                <th scope="col" class="p-6 final-score-column">Total</th>
+                <th scope="col " class="" *ngFor="let column of largestScore; let i = index">{{i + 1}}</th>
+              </tr>
+              <tbody>
+                <tr *ngFor="let player of players">
+                  <th scope="row">{{player.name}}</th>
+                  <td>{{player.finalScore}}</td>
+                  <td class="score-column" *ngFor="let row of largestScore; let i = index">{{player.scores[i] || '-'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  <br>
-</ng-container>
+</ng-template>
 
 <router-outlet></router-outlet>
